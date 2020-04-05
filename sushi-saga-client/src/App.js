@@ -6,12 +6,43 @@ import Table from './containers/Table';
 const API = "http://localhost:3000/sushis"
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      allSushi: [],
+      currentSushi: [],
+      eaten: [],
+      budget: 150
+    }
+  }
+
+  eatSushi = (id, price) =>{
+    this.setState((prevState) => {
+      return {eaten: [...prevState.eaten, id], budget: prevState.budget - price}
+    });
+  };
+
+  fetchSushi = 
+    fetch(API)
+    .then(res=>res.json())
+    .then(data=>this.setState({
+      allSushi: data,
+      currentSushi: data.slice(0,4)
+    }));
+  
+  onMoreSushi = () => {
+    let lastPiece = this.state.currentSushi[3];
+    let index = this.state.allSushi.indexOf(lastPiece);
+    this.setState({
+      currentSushi: this.state.allSushi.slice(index+1,index+5)
+    });
+  };
 
   render() {
     return (
       <div className="app">
-        <SushiContainer />
-        <Table />
+        <SushiContainer sushi={this.state.currentSushi} moreSushi={this.onMoreSushi} eatSushi={this.eatSushi} ateSushi={this.state.eaten} budget={this.state.budget} />
+        <Table ateSushi={this.state.eaten} budget={this.state.budget} />
       </div>
     );
   }
