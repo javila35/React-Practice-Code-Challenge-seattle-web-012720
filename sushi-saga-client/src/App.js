@@ -36,13 +36,17 @@ class App extends Component {
       allSushi: data,
       currentSushi: data.slice(0,4)
     }));
-  
+
   onMoreSushi = () => {
     let lastPiece = this.state.currentSushi[3];
     let index = this.state.allSushi.indexOf(lastPiece);
     this.setState({
       currentSushi: this.state.allSushi.slice(index+1,index+5)
     });
+  };
+  
+  removeFromAll = (id) => {
+    
   };
 
   render() {
