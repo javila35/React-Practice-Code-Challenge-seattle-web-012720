@@ -10,7 +10,7 @@ const Sushi = (props) => {
           props.ateSushi.includes(id) ?
             null
           :
-            <img src={img_url} width="100%" />
+            <img src={img_url} width="100%" alt={name} />
         }
       </div>
       <h4 className="sushi-details">

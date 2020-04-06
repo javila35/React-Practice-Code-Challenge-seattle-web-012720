@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SushiContainer from './containers/SushiContainer';
 import Table from './containers/Table';
+import Form from './components/MoneyForm';
 
 // Endpoint!
 const API = "http://localhost:3000/sushis"
@@ -15,6 +16,12 @@ class App extends Component {
       budget: 150
     }
   }
+
+  addMoney = (amount) =>{
+    this.setState((prevState) => {
+      return {budget: parseInt(prevState.budget,10) + parseInt(amount,10)}
+    });
+  };
 
   eatSushi = (id, price) =>{
     this.setState((prevState) => {
@@ -43,6 +50,7 @@ class App extends Component {
       <div className="app">
         <SushiContainer sushi={this.state.currentSushi} moreSushi={this.onMoreSushi} eatSushi={this.eatSushi} ateSushi={this.state.eaten} budget={this.state.budget} />
         <Table ateSushi={this.state.eaten} budget={this.state.budget} />
+        <Form addMoney={this.addMoney}/>
       </div>
     );
   }
